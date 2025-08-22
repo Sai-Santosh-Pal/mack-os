@@ -1,0 +1,48 @@
+@font-face {
+    font-family: 'SF Pro';
+    src: url('./fonts/SF-Pro-Display-Regular.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SF Pro Bold';
+    src: url('./fonts/SF-Pro-Display-Bold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SF Pro Semibold';
+    src: url('./fonts/SF-Pro-Display-Semibold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SF Pro Heavy';
+    src: url('./fonts/SF-Pro-Display-Heavy.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SF Pro Black';
+    src: url('./fonts/SF-Pro-Display-Black.otf') format('opentype');
+}
+
+* {
+    font-size: 16px;
+    color: white;
+    list-style: none;
+    font-family: 'SF Pro'
+}
+
+.bold {
+    font-family: 'SF Pro Bold';
+}
+
+.semibold {
+    font-family: 'SF Pro Semibold';
+}
+
+.heavy {
+    font-family: 'SF Pro Heavy';
+}
+
+.black {
+    font-family: 'SF Pro Black';
+}
+
