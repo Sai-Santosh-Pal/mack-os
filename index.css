@@ -46,3 +46,12 @@
     font-family: 'SF Pro Black';
 }
 
+.glass {
+    background-color: rgba(211, 211, 211, 0.5);
+    backdrop-filter: blur(50px);
+}
+
+.glass-less {
+    background-color: rgba(235, 235, 235, 0.5);
+    backdrop-filter: blur(5px);
+}
