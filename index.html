@@ -7,9 +7,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="index.css">
 </head>
-<body class="tracking-tight">
+<body class="">
     <div class="screen flex flex-col items-center justify-center w-screen">
-        <div class="topbar h-[30px] w-screen bg-black px-20 flex items-center">
+        <div class="topbar h-[30px] w-screen bg-black px-20 flex items-center justify-between
+        ">
             <div class="left flex items-center">
                 <div class="logo"><img src="assets/apple.png" alt="apple" class="h-[18px]"></div>
                 <div class="name text-white bold mx-5">Finder</div>
@@ -21,11 +22,11 @@
                     <li class="mr-5">Window</li>
                     <li class="mr-5">Help</li>
                 </div>
-            </div>
-            <div class="right">
-                <div class="icons"></div>
-                <div class="time"></div>
-                <div class="siri"></div>
+            </div> 
+            <div class="right flex gap-3 items-center">
+                <div class="date semibold">Mon Jun 10   </div>
+                <div class="time semibold">09:24 AM</div>
+                <div class="siri"><img src="assets/siri.png" alt="siri" class="h-[18px]"></div>
             </div>
         </div>
         <div class="desktop w-screen h-[calc(100vh-30px)] bg-stone-800"></div>
