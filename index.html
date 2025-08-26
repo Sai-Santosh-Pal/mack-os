@@ -29,17 +29,19 @@
             </div>
         </div>
         <div class="desktop w-screen h-[calc(100vh-30px)] bg-[url('assets/background-light.png')] bg-cover"></div>
-        <div class="dock glass-less h-20 px-1 absolute fixed bottom-5 z-100 rounded-[20px] flex flex-row items-center justify-center">
-            <img src="assets/dock/finder.png" class="h-[100%] cursor-pointer" alt="Finder">
-            <img src="assets/dock/messages.png" class="h-[100%] cursor-pointer" alt="Messages">
-            <img src="assets/dock/safari.png" class="h-[100%] cursor-pointer" alt="Safari">
-            <img src="assets/dock/launchpad.png" class="h-[100%] cursor-pointer" alt="Launchpad">
-            <img src="assets/dock/calendar.png" class="h-[100%] cursor-pointer" alt="Calendar">
-            <img src="assets/dock/terminal.png" class="h-[100%] cursor-pointer" alt="Terminal">
-            <img src="assets/dock/vscode.png" class="h-[100%] cursor-pointer" alt="VS Code">
-            <div class="dash w-[1px] h-[80%] mx-2 bg-stone-200"></div>
-            <img src="assets/dock/bin.png" class="h-[90%] cursor-pointer" alt="Bin">
+        <div class="dock absolute flex glass-less h-20 px-2 rounded-[20px] flex-row items-center justify-center bottom-5 z-50"> 
+            <!--  glass-less h-20 px-1 absolute fixed bottom-5 z-100 rounded-[20px] flex flex-row items-center justify-center -->
+            <img src="assets/dock/finder.png" class="dock-item h-[100%] cursor-pointer" alt="Finder">
+            <img src="assets/dock/messages.png" class="dock-item h-[100%] cursor-pointer" alt="Messages">
+            <img src="assets/dock/safari.png" class="dock-item h-[100%] cursor-pointer" alt="Safari">
+            <img src="assets/dock/launchpad.png" class="dock-item h-[100%] cursor-pointer" alt="Launchpad">
+            <img src="assets/dock/calendar.png" class="dock-item h-[100%] cursor-pointer" alt="Calendar">
+            <img src="assets/dock/terminal.png" class="dock-item h-[100%] cursor-pointer" alt="Terminal">
+            <img src="assets/dock/vscode.png" class="dock-item h-[100%] cursor-pointer" alt="VS Code">
+            <div class="w-[1px] dash w-[1px] h-[80%] mx-2  bg-stone-200"></div>
+            <img src="assets/dock/bin.png" class="dock-item h-[90%] cursor-pointer" alt="Bin">
         </div>
     </div>
+    <script src="index.js"></script>
 </body>
 </html>
