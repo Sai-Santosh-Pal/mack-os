@@ -1,484 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Safari</title>
-    <style>
-        @font-face {
-            font-family: 'SF Pro';
-            src: url('../assets/font/SF-Pro-Display-Regular.otf') format('opentype');
-            font-weight: normal;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'SF Pro';
-            src: url('../assets/font/SF-Pro-Display-Bold.otf') format('opentype');
-            font-weight: bold;
-            font-style: normal;
-        }
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            background: #f5f5f7;
-            font-family: 'SF Pro', Arial, sans-serif;
-        }
-        .safari-app {
-            width: 100%;
-            height: 100%;
-            min-height: 0;
-            min-width: 0;
-            background: #fff;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        .safari-toolbar {
-            display: flex;
-            align-items: center;
-            padding: 0 16px;
-            height: 54px;
-            background: linear-gradient(180deg, #f8f8fa 80%, #e9e9ee 100%);
-            border-bottom: 1px solid #e0e0e0;
-            flex-shrink: 0;
-        }
-        .safari-nav {
-            display: flex;
-            gap: 8px;
-            margin-right: 16px;
-        }
-        .safari-icon {
-            width: 22px;
-            height: 22px;
-            filter: grayscale(1) brightness(0.5);
-        }
-        .safari-address {
-            flex: 1;
-            height: 32px;
-            border-radius: 8px;
-            border: 1px solid #d0d0d5;
-            background: #f4f4f7;
-            font-size: 16px;
-            padding: 0 12px;
-            font-family: 'SF Pro', Arial, sans-serif;
-            outline: none;
-            margin-right: 8px;
-            transition: border 0.2s;
-        }
-        .safari-address:focus {
-            border: 1.5px solid #0071e3;
-            background: #fff;
-        }
-        .safari-go {
-            background: #0071e3;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            padding: 0 18px;
-            height: 32px;
-            font-size: 15px;
-            font-family: 'SF Pro', Arial, sans-serif;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.2s;
-        }
-        .safari-go:hover {
-            background: #005bb5;
-        }
-        .safari-frame {
-            flex: 1 1 0%;
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: #f5f5f7;
-            min-height: 0;
-        }
-        button {
-            background: none;
-            border: none;
-            padding: 0;
-            cursor: pointer;
-        }
-        button:active .safari-icon {
-            filter: grayscale(0) brightness(0.8);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Safari</title>
+  <style>
+    @font-face {
+      font-family: 'SF Pro';
+      src: url('../assets/font/SF-Pro-Display-Regular.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'SF Pro';
+      src: url('../assets/font/SF-Pro-Display-Bold.otf') format('opentype');
+      font-weight: bold;
+      font-style: normal;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f7;
+      font-family: 'SF Pro', Arial, sans-serif;
+    }
+    .safari-app {
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .safari-toolbar {
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      height: 54px;
+      background: linear-gradient(180deg, #f8f8fa 80%, #e9e9ee 100%);
+      border-bottom: 1px solid #e0e0e0;
+      flex-shrink: 0;
+    }
+    .safari-nav {
+      display: flex;
+      gap: 8px;
+      margin-right: 16px;
+    }
+    .safari-icon {
+      width: 22px;
+      height: 22px;
+      filter: grayscale(1) brightness(0.5);
+    }
+    .safari-address {
+      flex: 1;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid #d0d0d5;
+      background: #f4f4f7;
+      font-size: 16px;
+      padding: 0 12px;
+      outline: none;
+      margin-right: 8px;
+      transition: border 0.2s;
+    }
+    .safari-address:focus {
+      border: 1.5px solid #0071e3;
+      background: #fff;
+    }
+    .safari-go {
+      background: #0071e3;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0 18px;
+      height: 32px;
+      font-size: 15px;
+      font-family: 'SF Pro', Arial, sans-serif;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+    .safari-go:hover {
+      background: #005bb5;
+    }
+    .safari-frame {
+      flex: 1;
+      width: 100%;
+      border: none;
+      background: #f5f5f7;
+    }
+    button {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+    button:active .safari-icon {
+      filter: grayscale(0) brightness(0.8);
+    }
+  </style>
 </head>
 <body>
-    <div class="safari-app">
-        <div class="safari-toolbar">
-            <div class="safari-nav">
-                <button id="backBtn" title="Back">
-                    <img src="../assets/dock/launchpad.png" alt="Back" class="safari-icon safari-back">
-                </button>
-                <button id="forwardBtn" title="Forward">
-                    <img src="../assets/dock/launchpad.png" alt="Forward" class="safari-icon safari-forward" style="transform: scaleX(-1);">
-                </button>
-                <button id="refreshBtn" title="Refresh">
-                    <img src="../assets/dock/refresh.png" alt="Refresh" class="safari-icon safari-refresh">
-                </button>
-            </div>
-            <input id="addressBar" class="safari-address" type="text" value="https://www.apple.com" spellcheck="false">
-            <button id="goBtn" class="safari-go">Go</button>
-        </div>
-        <iframe id="safariFrame" class="safari-frame" src="https://www.apple.com" frameborder="0" allowfullscreen></iframe>
+  <div class="safari-app">
+    <div class="safari-toolbar">
+      <div class="safari-nav">
+        <button id="backBtn" title="Back">
+          <img src="../assets/dock/launchpad.png" alt="Back" class="safari-icon safari-back">
+        </button>
+        <button id="forwardBtn" title="Forward">
+          <img src="../assets/dock/launchpad.png" alt="Forward" class="safari-icon safari-forward" style="transform: scaleX(-1);">
+        </button>
+        <button id="refreshBtn" title="Refresh">
+          <img src="../assets/dock/refresh.png" alt="Refresh" class="safari-icon safari-refresh">
+        </button>
+      </div>
+      <input id="addressBar" class="safari-address" type="text" value="https://ssntshpl.vercel.app" spellcheck="false">
+      <button id="goBtn" class="safari-go">Go</button>
     </div>
-    <script>
-        // --- Safari Navigation Logic ---
-        const frame = document.getElementById('safariFrame');
-        const addressBar = document.getElementById('addressBar');
-        const goBtn = document.getElementById('goBtn');
-        const backBtn = document.getElementById('backBtn');
-        const forwardBtn = document.getElementById('forwardBtn');
-        const refreshBtn = document.getElementById('refreshBtn');
-        let historyStack = [addressBar.value];
-        let historyIndex = 0;
+    <iframe id="safariFrame" class="safari-frame" src="https://ssntshpl.vercel.app" frameborder="0"></iframe>
+  </div>
 
-        function navigate(url) {
-            if (!/^https?:\/\//.test(url)) url = 'https://' + url;
-            // Try to set iframe src, fallback to new tab if blocked
-            frame.src = url;
-            addressBar.value = url;
-            setTimeout(() => {
-                // If iframe is blank or about:blank after load, open in new tab
-                try {
-                    // Some browsers block access to iframe.contentDocument for cross-origin, so just check src
-                    if (frame.contentWindow.location.href === 'about:blank' || frame.src === 'about:blank') {
-                        window.open(url, '_blank');
-                    }
-                } catch (e) {
-                    // If error accessing, assume it's loaded (or blocked, but can't check)
-                }
-            }, 1200);
-            if (historyStack[historyIndex] !== url) {
-                historyStack = historyStack.slice(0, historyIndex + 1);
-                historyStack.push(url);
-                historyIndex++;
-            }
-        }
+  <script>
+    // Elements
+    const frame = document.getElementById('safariFrame');
+    const addressBar = document.getElementById('addressBar');
+    const goBtn = document.getElementById('goBtn');
+    const backBtn = document.getElementById('backBtn');
+    const forwardBtn = document.getElementById('forwardBtn');
+    const refreshBtn = document.getElementById('refreshBtn');
 
-        goBtn.onclick = () => navigate(addressBar.value);
-        addressBar.addEventListener('keydown', e => {
-            if (e.key === 'Enter') navigate(addressBar.value);
-        });
-        backBtn.onclick = () => {
-            if (historyIndex > 0) {
-                historyIndex--;
-                frame.src = historyStack[historyIndex];
-                addressBar.value = historyStack[historyIndex];
-            }
-        };
-        forwardBtn.onclick = () => {
-            if (historyIndex < historyStack.length - 1) {
-                historyIndex++;
-                frame.src = historyStack[historyIndex];
-                addressBar.value = historyStack[historyIndex];
-            }
-        };
-        refreshBtn.onclick = () => {
-            frame.src = addressBar.value;
-        };
-        frame.addEventListener('load', () => {
-            addressBar.value = frame.src;
-        });
-        // Responsive iframe height (fills window)
-        function resizeIframe() {
-            const app = document.querySelector('.safari-app');
-            const toolbar = document.querySelector('.safari-toolbar');
-            const iframe = document.getElementById('safariFrame');
-            const h = app.clientHeight - toolbar.offsetHeight;
-            iframe.style.height = h + 'px';
-        }
-        window.addEventListener('resize', resizeIframe);
-        window.addEventListener('DOMContentLoaded', resizeIframe);
-        resizeIframe();
-    </script>
-</body>
-</html>
-    <script>
-        // --- Safari Navigation Logic ---
-        const frame = document.getElementById('safariFrame');
-        const addressBar = document.getElementById('addressBar');
-        const goBtn = document.getElementById('goBtn');
-        const backBtn = document.getElementById('backBtn');
-        const forwardBtn = document.getElementById('forwardBtn');
-        const refreshBtn = document.getElementById('refreshBtn');
-        let historyStack = [addressBar.value];
-        let historyIndex = 0;
+    let historyStack = [addressBar.value];
+    let historyIndex = 0;
 
-        function navigate(url) {
-            if (!/^https?:\/\//.test(url)) url = 'https://' + url;
-            frame.src = url;
-            addressBar.value = url;
-            if (historyStack[historyIndex] !== url) {
-                historyStack = historyStack.slice(0, historyIndex + 1);
-                historyStack.push(url);
-                historyIndex++;
-            }
-        }
+    function navigate(url) {
+      if (!/^https?:\/\//.test(url)) url = 'https://' + url;
+      frame.src = url;
+      addressBar.value = url;
 
-        goBtn.onclick = () => navigate(addressBar.value);
-        addressBar.addEventListener('keydown', e => {
-            if (e.key === 'Enter') navigate(addressBar.value);
-        });
-        backBtn.onclick = () => {
-            if (historyIndex > 0) {
-                historyIndex--;
-                frame.src = historyStack[historyIndex];
-                addressBar.value = historyStack[historyIndex];
-            }
-        };
-        forwardBtn.onclick = () => {
-            if (historyIndex < historyStack.length - 1) {
-                historyIndex++;
-                frame.src = historyStack[historyIndex];
-                addressBar.value = historyStack[historyIndex];
-            }
-        };
-        refreshBtn.onclick = () => {
-            frame.src = addressBar.value;
-        };
-        frame.addEventListener('load', () => {
-            addressBar.value = frame.src;
-        });
-    </script>
-    <script>
-        // ...existing code for window controls, drag, resize...
-        // --- Safari Navigation Logic ---
-        const frame = document.getElementById('safariFrame');
-        const addressBar = document.getElementById('addressBar');
-        const goBtn = document.getElementById('goBtn');
-        const backBtn = document.getElementById('backBtn');
-        const forwardBtn = document.getElementById('forwardBtn');
-        const refreshBtn = document.getElementById('refreshBtn');
-        let historyStack = [addressBar.value];
-        let historyIndex = 0;
+      // fallback: detect blocked iframe → open new tab
+      setTimeout(() => {
+        try {
+          const sameOrigin = frame.contentDocument; // will throw if cross-origin
+          // if no error, it's fine
+        } catch (e) {
+          if (frame.src !== url) {
+            window.open(url, "_blank"); // fallback open new tab
+          }
+        }
+      }, 1200);
 
-        function navigate(url) {
-            if (!/^https?:\/\//.test(url)) url = 'https://' + url;
-            frame.src = url;
-            addressBar.value = url;
-            if (historyStack[historyIndex] !== url) {
-                historyStack = historyStack.slice(0, historyIndex + 1);
-                historyStack.push(url);
-                historyIndex++;
-            }
-        }
+      if (historyStack[historyIndex] !== url) {
+        historyStack = historyStack.slice(0, historyIndex + 1);
+        historyStack.push(url);
+        historyIndex++;
+      }
+    }
 
-        goBtn.onclick = () => navigate(addressBar.value);
-        addressBar.addEventListener('keydown', e => {
-            if (e.key === 'Enter') navigate(addressBar.value);
-        });
-        backBtn.onclick = () => {
-            if (historyIndex > 0) {
-                historyIndex--;
-                frame.src = historyStack[historyIndex];
-                addressBar.value = historyStack[historyIndex];
-            }
-        };
-        forwardBtn.onclick = () => {
-            if (historyIndex < historyStack.length - 1) {
-                historyIndex++;
-                frame.src = historyStack[historyIndex];
-                addressBar.value = historyStack[historyIndex];
-            }
-        };
-        refreshBtn.onclick = () => {
-            frame.src = addressBar.value;
-        };
-        frame.addEventListener('load', () => {
-            addressBar.value = frame.src;
-        });
-    </script>
-</body>
-</html>    <style>
-        @font-face {
-            font-family: 'SF Pro';
-            src: url('../assets/font/SF-Pro-Display-Regular.otf') format('opentype');
-            font-weight: normal;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'SF Pro';
-            src: url('../assets/font/SF-Pro-Display-Bold.otf') format('opentype');
-            font-weight: bold;
-            font-style: normal;
-        }
-        body {
-            margin: 0;
-            background: #f5f5f7;
-            font-family: 'SF Pro', Arial, sans-serif;
-        }
-        .safari-app {
-            width: 100%;
-            height: 100%;
-            background: #fff;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        .safari-toolbar {
-            display: flex;
-            align-items: center;
-            padding: 0 16px;
-            height: 54px;
-            background: linear-gradient(180deg, #f8f8fa 80%, #e9e9ee 100%);
-            border-bottom: 1px solid #e0e0e0;
-        }
-        .safari-nav {
-            display: flex;
-            gap: 8px;
-            margin-right: 16px;
-        }
-        .safari-icon {
-            width: 22px;
-            height: 22px;
-            filter: grayscale(1) brightness(0.5);
-        }
-        .safari-address {
-            flex: 1;
-            height: 32px;
-            border-radius: 8px;
-            border: 1px solid #d0d0d5;
-            background: #f4f4f7;
-            font-size: 16px;
-            padding: 0 12px;
-            font-family: 'SF Pro', Arial, sans-serif;
-            outline: none;
-            margin-right: 8px;
-            transition: border 0.2s;
-        }
-        .safari-address:focus {
-            border: 1.5px solid #0071e3;
-            background: #fff;
-        }
-        .safari-go {
-            background: #0071e3;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            padding: 0 18px;
-            height: 32px;
-            font-size: 15px;
-            font-family: 'SF Pro', Arial, sans-serif;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.2s;
-        }
-        .safari-go:hover {
-            background: #005bb5;
-        }
-        .safari-frame {
-            flex: 1;
-            width: 100%;
-            border: none;
-            background: #f5f5f7;
-        }
-        button {
-            background: none;
-            border: none;
-            padding: 0;
-            cursor: pointer;
-        }
-        button:active .safari-icon {
-            filter: grayscale(0) brightness(0.8);
-        }
-    </style>
-    <script>
-        // --- Safari Navigation Logic ---
-        const frame = document.getElementById('safariFrame');
-        const addressBar = document.getElementById('addressBar');
-        const goBtn = document.getElementById('goBtn');
-        const backBtn = document.getElementById('backBtn');
-        const forwardBtn = document.getElementById('forwardBtn');
-        const refreshBtn = document.getElementById('refreshBtn');
-        let historyStack = [addressBar.value];
-        let historyIndex = 0;
+    goBtn.onclick = () => navigate(addressBar.value);
+    addressBar.addEventListener('keydown', e => {
+      if (e.key === 'Enter') navigate(addressBar.value);
+    });
 
-        function navigate(url) {
-            if (!/^https?:\/\//.test(url)) url = 'https://' + url;
-            frame.src = url;
-            addressBar.value = url;
-            if (historyStack[historyIndex] !== url) {
-                historyStack = historyStack.slice(0, historyIndex + 1);
-                historyStack.push(url);
-                historyIndex++;
-            }
-        }
+    backBtn.onclick = () => {
+      if (historyIndex > 0) {
+        historyIndex--;
+        frame.src = historyStack[historyIndex];
+        addressBar.value = historyStack[historyIndex];
+      }
+    };
 
-        goBtn.onclick = () => navigate(addressBar.value);
-        addressBar.addEventListener('keydown', e => {
-            if (e.key === 'Enter') navigate(addressBar.value);
-        });
-        backBtn.onclick = () => {
-            if (historyIndex > 0) {
-                historyIndex--;
-                frame.src = historyStack[historyIndex];
-                addressBar.value = historyStack[historyIndex];
-            }
-        };
-        forwardBtn.onclick = () => {
-            if (historyIndex < historyStack.length - 1) {
-                historyIndex++;
-                frame.src = historyStack[historyIndex];
-                addressBar.value = historyStack[historyIndex];
-            }
-        };
-        refreshBtn.onclick = () => {
-            frame.src = addressBar.value;
-        };
-        frame.addEventListener('load', () => {
-            addressBar.value = frame.src;
-        });
-    </script>
-    <script>
-        // ...existing code for window controls, drag, resize...
-        // --- Safari Navigation Logic ---
-        const frame = document.getElementById('safariFrame');
-        const addressBar = document.getElementById('addressBar');
-        const goBtn = document.getElementById('goBtn');
-        const backBtn = document.getElementById('backBtn');
-        const forwardBtn = document.getElementById('forwardBtn');
-        const refreshBtn = document.getElementById('refreshBtn');
-        let historyStack = [addressBar.value];
-        let historyIndex = 0;
+    forwardBtn.onclick = () => {
+      if (historyIndex < historyStack.length - 1) {
+        historyIndex++;
+        frame.src = historyStack[historyIndex];
+        addressBar.value = historyStack[historyIndex];
+      }
+    };
 
-        function navigate(url) {
-            if (!/^https?:\/\//.test(url)) url = 'https://' + url;
-            frame.src = url;
-            addressBar.value = url;
-            if (historyStack[historyIndex] !== url) {
-                historyStack = historyStack.slice(0, historyIndex + 1);
-                historyStack.push(url);
-                historyIndex++;
-            }
-        }
+    refreshBtn.onclick = () => {
+      frame.src = addressBar.value;
+    };
 
-        goBtn.onclick = () => navigate(addressBar.value);
-        addressBar.addEventListener('keydown', e => {
-            if (e.key === 'Enter') navigate(addressBar.value);
-        });
-        backBtn.onclick = () => {
-            if (historyIndex > 0) {
-                historyIndex--;
-                frame.src = historyStack[historyIndex];
-                addressBar.value = historyStack[historyIndex];
-            }
-        };
-        forwardBtn.onclick = () => {
-            if (historyIndex < historyStack.length - 1) {
-                historyIndex++;
-                frame.src = historyStack[historyIndex];
-                addressBar.value = historyStack[historyIndex];
-            }
-        };
-        refreshBtn.onclick = () => {
-            frame.src = addressBar.value;
-        };
-        frame.addEventListener('load', () => {
-            addressBar.value = frame.src;
-        });
-    </script>
+    frame.addEventListener('load', () => {
+      addressBar.value = frame.src;
+    });
+  </script>
 </body>
 </html>

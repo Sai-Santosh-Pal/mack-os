@@ -43,37 +43,50 @@ dockItems.forEach((item, index) => {
 // ---------------- Window Creation ----------------
 function createWindow(title, url) {
   const win = document.createElement('div');
-  win.className = "window absolute bg-gray-900 shadow-2xl rounded-lg overflow-hidden";
-  win.style.width = "600px";
-  win.style.height = "400px";
+  win.className = "window shadow-2xl rounded-lg overflow-hidden";
+  win.style.width = "900px";
+  win.style.height = "600px";
   win.style.top = "100px";
   win.style.left = "100px";
   win.style.zIndex = zIndexCounter++;
 
   win.innerHTML = `
-    <div class="window-topbar bg-gray-800 text-white flex justify-between items-center px-3 py-1 cursor-move">
-      <div class="controls flex gap-2">
-        <div class="close w-3 h-3 bg-red-500 rounded-full cursor-pointer" title="Close"></div>
-        <div class="minimize w-3 h-3 bg-yellow-400 rounded-full cursor-pointer" title="Minimize"></div>
-        <div class="fullscreen w-3 h-3 bg-green-500 rounded-full cursor-pointer" title="Full Screen"></div>
+    <div class="window-topbar">
+      <div class="controls">
+        <div class="close" title="Close"></div>
+        <div class="minimize" title="Minimize"></div>
+        <div class="fullscreen" title="Full Screen"></div>
       </div>
-      <span class="font-medium">${title}</span>
+      <span>${title}</span>
     </div>
-    <iframe src="${url}" class="window-content absolute left-0 top-[30px] w-full h-[calc(100%-30px)] bg-white" style="border:none;"></iframe>
-    <div class="resizer-se absolute w-4 h-4 right-0 bottom-0 cursor-se-resize z-10"></div>
+    <iframe src="${url}" class="window-content" style="position:absolute; left:0; top:32px; width:100%; height:calc(100% - 32px); background:white; border:none;"></iframe>
+    <div class="resizer resizer-n"></div>
+    <div class="resizer resizer-s"></div>
+    <div class="resizer resizer-e"></div>
+    <div class="resizer resizer-w"></div>
+    <div class="resizer resizer-ne"></div>
+    <div class="resizer resizer-nw"></div>
+    <div class="resizer resizer-se"></div>
+    <div class="resizer resizer-sw"></div>
   `;
-  // Make window resizable
-  const resizer = win.querySelector('.resizer-se');
-  let isResizing = false, startX, startY, startW, startH;
-  resizer.addEventListener('mousedown', (e) => {
-    isResizing = true;
-    startX = e.clientX;
-    startY = e.clientY;
-    const rect = win.getBoundingClientRect();
-    startW = rect.width;
-    startH = rect.height;
-    document.body.style.userSelect = 'none';
-    e.preventDefault();
+
+  // Make window resizable from all edges/corners
+  let isResizing = false, currentResizer = null, startX, startY, startW, startH, startTop, startLeft;
+  const minW = 350, minH = 200;
+  win.querySelectorAll('.resizer').forEach(resizer => {
+    resizer.addEventListener('mousedown', (e) => {
+      isResizing = true;
+      currentResizer = resizer.classList[1].split('-')[1];
+      const rect = win.getBoundingClientRect();
+      startX = e.clientX;
+      startY = e.clientY;
+      startW = rect.width;
+      startH = rect.height;
+      startTop = rect.top;
+      startLeft = rect.left;
+      document.body.style.userSelect = 'none';
+      e.preventDefault();
+    });
   });
   document.addEventListener('mousemove', resizeWindow);
   document.addEventListener('mouseup', () => {
@@ -82,18 +95,72 @@ function createWindow(title, url) {
   });
   function resizeWindow(e) {
     if (!isResizing) return;
-    let newW = Math.max(350, startW + (e.clientX - startX));
-    let newH = Math.max(200, startH + (e.clientY - startY));
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    const viewportW = window.innerWidth;
+    const viewportH = window.innerHeight;
+    let newW = startW, newH = startH, newTop = win.offsetTop, newLeft = win.offsetLeft;
+    switch (currentResizer) {
+      case 'n':
+        newH = Math.max(minH, startH - dy);
+        newTop = startTop + dy;
+        break;
+      case 's':
+        newH = Math.max(minH, startH + dy);
+        break;
+      case 'e':
+        newW = Math.max(minW, startW + dx);
+        break;
+      case 'w':
+        newW = Math.max(minW, startW - dx);
+        newLeft = startLeft + dx;
+        break;
+      case 'ne':
+        newH = Math.max(minH, startH - dy);
+        newTop = startTop + dy;
+        newW = Math.max(minW, startW + dx);
+        break;
+      case 'nw':
+        newH = Math.max(minH, startH - dy);
+        newTop = startTop + dy;
+        newW = Math.max(minW, startW - dx);
+        newLeft = startLeft + dx;
+        break;
+      case 'se':
+        newH = Math.max(minH, startH + dy);
+        newW = Math.max(minW, startW + dx);
+        break;
+      case 'sw':
+        newH = Math.max(minH, startH + dy);
+        newW = Math.max(minW, startW - dx);
+        newLeft = startLeft + dx;
+        break;
+    }
+    // Restrict to viewport boundaries
+    newW = Math.min(newW, viewportW - newLeft);
+    newH = Math.min(newH, viewportH - newTop);
+    if (newLeft < 0) {
+      newW += newLeft; // shrink width if left edge goes out
+      newLeft = 0;
+    }
+    if (newTop < 0) {
+      newH += newTop; // shrink height if top edge goes out
+      newTop = 0;
+    }
+    // Prevent window from exceeding right/bottom
+    if (newLeft + newW > viewportW) newW = viewportW - newLeft;
+    if (newTop + newH > viewportH) newH = viewportH - newTop;
     win.style.width = newW + 'px';
     win.style.height = newH + 'px';
+    win.style.top = newTop + 'px';
+    win.style.left = newLeft + 'px';
     // Adjust iframe size
     const iframe = win.querySelector('.window-content');
-    iframe.style.height = (newH - 30) + 'px';
+    iframe.style.height = (newH - 32) + 'px';
     iframe.style.width = '100%';
   }
 
   desktop.appendChild(win);
-
   makeDraggable(win);
   addWindowControls(win);
 }
@@ -165,10 +232,10 @@ function addWindowControls(win) {
         height: win.style.height,
         borderRadius: win.style.borderRadius
       };
-      win.style.left = '0';
-      win.style.top = '0';
-      win.style.width = '100vw';
-      win.style.height = '100vh';
+      win.style.left = '0px';
+      win.style.top = '0px';
+      win.style.width = window.innerWidth + 'px';
+      win.style.height = window.innerHeight + 'px';
       win.style.borderRadius = '0';
       isFullscreen = true;
     } else {

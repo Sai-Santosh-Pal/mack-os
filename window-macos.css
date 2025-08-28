@@ -1,0 +1,70 @@
+/* Resizable window edges and corners */
+.window {
+  position: absolute;
+  box-sizing: border-box;
+  /* Already has transition */
+}
+
+/* Resizer handles for all 8 directions */
+.resizer {
+  position: absolute;
+  z-index: 20;
+}
+.resizer-n { top: -2px; left: 0; right: 0; height: 6px; cursor: n-resize; }
+.resizer-s { bottom: -2px; left: 0; right: 0; height: 6px; cursor: s-resize; }
+.resizer-e { top: 0; right: -2px; bottom: 0; width: 6px; cursor: e-resize; }
+.resizer-w { top: 0; left: -2px; bottom: 0; width: 6px; cursor: w-resize; }
+.resizer-ne { top: -2px; right: -2px; width: 12px; height: 12px; cursor: ne-resize; }
+.resizer-nw { top: -2px; left: -2px; width: 12px; height: 12px; cursor: nw-resize; }
+.resizer-se { bottom: -2px; right: -2px; width: 12px; height: 12px; cursor: se-resize; }
+.resizer-sw { bottom: -2px; left: -2px; width: 12px; height: 12px; cursor: sw-resize; }
+
+/* macOS style window topbar */
+/* macOS style window topbar always at top */
+.window-topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, #ececec 80%, #d1d1d1 100%);
+  color: #222;
+  border-bottom: 1px solid #bdbdbd;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-family: 'SF Pro', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  z-index: 10;
+}
+.window-topbar .controls {
+  display: flex;
+  gap: 8px;
+  margin-right: 10px;
+}
+.window-topbar .close,
+.window-topbar .minimize,
+.window-topbar .fullscreen {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  border: 1px solid #bbb;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+}
+.window-topbar .close { background: #ff5f56; border-color: #e0443e; }
+.window-topbar .minimize { background: #ffbd2e; border-color: #dea123; }
+.window-topbar .fullscreen { background: #27c93f; border-color: #13a10e; }
+.window-topbar span {
+  flex: 1;
+  text-align: center;
+  color: #222;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  font-size: 15px;
+  user-select: none;
+}
