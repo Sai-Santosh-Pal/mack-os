@@ -253,4 +253,3 @@ function addWindowControls(win) {
   // Initial adjust
   adjustIframe();
 }
-
