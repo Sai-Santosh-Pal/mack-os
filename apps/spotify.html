@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <title>Spotify</title>
     <link rel="stylesheet" href="https://sets.hugeicons.com/YOUR-SET-ID.css" crossorigin="anonymous">
 </head>
+
 <body>
     <div class="container flex bg-black">
         <div class="left">
@@ -25,34 +27,118 @@
                         Your Library
                     </h2>
                 </div>
-                <div class="footer">
-                    <div><a href="https://www.spotify.com/jp/legal/"><span>Legal</span></a></div>
-                    <div><a href="https://www.spotify.com/jp/privacy/"><span>Privacy Center</span></a></div>
-                    <div><a href="https://www.spotify.com/jp/legal/privacy-policy/"><span>Privacy Policy</span></a></div>
-                    <div><a href="https://www.spotify.com/jp/legal/cookies-policy/"><span>Cookies</span></a></div>
-                    <div><a href="https://www.spotify.com/jp/legal/privacy-policy/#s3"><span>About Ads</span></a></div>
-                    <div><a href="https://www.spotify.com/jp/accessibility/"><span>Accessibility</span></a></div>
+                <div class="items" style="margin-left: 1rem;">
+                    <div class="item" style="margin-bottom: 12px; display: flex; gap: 10px;align-items: center;">
+                        <img src="./songs/cs/cover.jpg" height="35px" alt="" style="border-radius: 2px;">
+                        <div style="">
+                            <h3>Happy Hits!</h3>
+                            <p class="subtitle">Uplifts your mood!</p>
+                        </div>
+                    </div>
+                    <div class="item" style="align-items: center;margin-bottom: 12px; display: flex; gap: 10px;">
+                        <img src="./songs/Funky_(mood)/cover.jpg" height="35px" alt="" style="border-radius: 2px;">
+                        <div style="">
+                            <h3>Funky</h3>
+                            <p class="subtitle">Funky songs you love to listen</p>
+                        </div>
+                    </div>
+                    <div class="item" style="align-items: center;margin-bottom: 12px; display: flex; gap: 10px;">
+                        <img src="./songs/karan aujla/cover.jpg" height="35px" alt="" style="border-radius: 2px;">
+                        <div style="">
+                            <h3>Karan Aujla</h3>
+                            <p class="subtitle">For the Punjabi in you</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            
+
         </div>
-        <div class="right border">
+        <div class="right h-[100vh] bg-grey rounded">
             <div class="header">
                 <div class="nav">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
-                        <path d="M15 6C15 6 9.00001 10.4189 9 12C8.99999 13.5812 15 18 15 18" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000"
+                        fill="none">
+                        <path d="M15 6C15 6 9.00001 10.4189 9 12C8.99999 13.5812 15 18 15 18" stroke="#ffffff"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
-                        <path d="M9.00005 6C9.00005 6 15 10.4189 15 12C15 13.5812 9 18 9 18" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000"
+                        fill="none">
+                        <path d="M9.00005 6C9.00005 6 15 10.4189 15 12C15 13.5812 9 18 9 18" stroke="#ffffff"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                     </svg>
                 </div>
-                <div class="buttons">
-                    <button>Sign Up</button> 
-                    <button>Login</button>
+                <div class="buttons" style="display: none">
+                    <button
+                        style="font-weight: 900;padding-inline: 20px; padding-top: 5px;padding-bottom: 7px; background: white; border: none; box-shadow: none; outline: none; cursor: pointer; border-radius: 10px;">Sign
+                        Up</button>
+                    <button
+                        style="font-weight: 900; padding-inline: 20px; padding-top: 5px;padding-bottom:7px; background: white; border: none; box-shadow: none; outline: none; cursor: pointer; border-radius: 10px;">Login</button>
+                </div>
+            </div>
+            <div class="spotifyPlaylists">
+                <h1>Made For You</h1>
+                <p class="subtitle" style="margin-top: -5px; margin-bottom: 25px;">Curated for your taste!</p>
+                <div class="cardContainer">
+                    <div class="card">
+                        <img src="./songs/cs/cover.jpg" height="200px" width="120px" alt="">
+                        <h2 class="">Happy Hits!</h2>
+                        <p class="subtitle">Hits to boost your mood and fill you with happiness</p>
+                    </div>
+                    <div class="card">
+                        <img src="./songs/Angry_(mood)/cover.jpg" height="200px" width="120px" alt="">
+                        <h2 class="">Angry</h2>
+                        <p class="subtitle">Hits to boost your mood and fill you with happiness</p>
+                    </div>
+                    <div class="card">
+                        <img src="./songs/ncs/cover.jpg" height="200px" width="120px" alt="">
+                        <h2 class="">Happy Hits!</h2>
+                        <p class="subtitle">Hits to boost your mood and fill you with happiness</p>
+                    </div>
+                    <div class="card">
+                        <img src="./songs/Love_(mood)/cover.jpg" height="200px" width="120px" alt="">
+                        <h2 class="">Happy Hits!</h2>
+                        <p class="subtitle">Hits to boost your mood and fill you with happiness</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div id="overlay" onclick="this.style.display='none';" style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 100vw;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      font-family: sans-serif;
+      font-size: 1.5rem;
+      text-align: center;
+      padding: 2rem;
+      z-index: 9999;
+      cursor: pointer;
+    ">
+    🚧 This is a Spotify UI clone. Nothing is functional yet — I'm working on it and will be shipping it in the next
+    update. <br>
+    Click anywhere to close this message.
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('click', function () {
+                document.getElementById('overlay').style.display = 'flex';
+            });
+
+            document.getElementById('overlay').addEventListener('click', function (event) {
+                event.stopPropagation();
+                this.style.display = 'none';
+            });
+        });
+    </script>
+
 </body>
+
 </html>
