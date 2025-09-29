@@ -1,0 +1,97 @@
+@font-face {
+    font-family: 'SF Pro';
+    src: url('../assets/font/SF-Pro-Display-Regular.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SF Pro Bold';
+    src: url('../assets/font/SF-Pro-Display-Bold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SF Pro Semibold';
+    src: url('../assets/font/SF-Pro-Display-Regular.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SF Pro Heavy';
+    src: url('../assets/font/SF-Pro-Display-Heavy.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SF Pro Black';
+    src: url('../assets/font/SF-Pro-Display-Black.otf') format('opentype');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 16px;
+    /* list-style: none; */
+    font-family: 'SF Pro';
+    transition: 0.1s ease
+}
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #df579b;
+  }
+
+.wrapper{
+    width: 450px;
+    background: #fff;
+    border-radius: 10px;
+}
+
+.wrapper header{
+    display: flex;
+    align-items: center;
+    padding: 25px 30px 10px;
+    justify-content: space-between;
+}
+
+header .current-date{
+    font-size: 1.45rem;
+    font-weight: 500;
+}
+
+header .icons span{
+    height: 38px;
+    width: 38px;
+    margin: 0 1px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 38px;
+    border-radius: 50%;
+    background: #f2f2f2;
+}
+
+header .icons span:last-child{
+    margin-right: -10px;
+}
+
+.calendar ul{
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+.bold {
+    font-family: 'SF Pro Bold';
+}
+
+.semibold {
+    font-family: 'SF Pro Semibold';
+}
+
+.heavy {
+    font-family: 'SF Pro Heavy';
+}
+
+.black {
+    font-family: 'SF Pro Black';
+}
