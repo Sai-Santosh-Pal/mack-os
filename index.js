@@ -44,8 +44,14 @@ dockItems.forEach((item, index) => {
 function createWindow(title, url) {
   const win = document.createElement('div');
   win.className = "window shadow-2xl rounded-lg overflow-hidden";
-  win.style.width = "900px";
-  win.style.height = "600px";
+  // Wider default size for calendar
+  if (url.includes('calendar.html')) {
+    win.style.width = "1200px";
+    win.style.height = "700px";
+  } else {
+    win.style.width = "900px";
+    win.style.height = "600px";
+  }
   win.style.top = "100px";
   win.style.left = "100px";
   win.style.zIndex = zIndexCounter++;
