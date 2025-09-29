@@ -3,17 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Calendar</title>
     <link rel="stylesheet" href="calendar.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <script defer src="calendar.js"></script>
 </head>
 <body>
     <div class="wrapper">
         <header>
-            <p class="current-date">October 2025</p>
-            <div class="icons">
-                <span class="material-symbols-rounded">chevron_left</span>
-                <span class="material-symbols-rounded">chevron_right</span>
+            <div style="display:flex;align-items:center;gap:16px;">
+                <h1 style="font-size:2.2rem;font-weight:600;color:#1d1d1f;margin:0;">Calendar</h1>
+                <nav style="display:flex;gap:8px;">
+                    <button class="nav-btn" data-view="day">Day</button>
+                    <button class="nav-btn" data-view="week">Week</button>
+                    <button class="nav-btn active" data-view="month">Month</button>
+                    <button class="nav-btn" data-view="year">Year</button>
+                </nav>
+            </div>
+            <div style="display:flex;align-items:center;gap:16px;">
+                <div class="icons">
+                    <span class="material-symbols-rounded">chevron_left</span>
+                    <span class="material-symbols-rounded">chevron_right</span>
+                </div>
+                <button class="today-btn">Today</button>
+                <span class="current-date">Month Year</span>
+
             </div>
         </header>
         <div class="calendar">
@@ -26,44 +40,11 @@
                 <li>Fri</li>
                 <li>Sat</li>
             </ul>
-            <ul class="days">
-                <li>28</li>
-                <li>29</li>
-                <li>30</li>
-                <li>31</li>
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
-                <li>5</li>
-                <li>6</li>
-                <li>7</li>
-                <li>8</li>
-                <li>9</li>
-                <li>10</li>
-                <li>11</li>
-                <li>12</li>
-                <li>13</li>
-                <li>14</li>
-                <li>15</li>
-                <li>16</li>
-                <li>17</li>
-                <li>18</li>
-                <li>19</li>
-                <li>20</li>
-                <li>21</li>
-                <li>22</li>
-                <li>23</li>
-                <li>24</li>
-                <li>25</li>
-                <li>26</li>
-                <li>27</li>
-                <li>28</li>
-                <li>29</li>
-                <li>30</li>
-                <li>1</li>
-            </ul>
+            <ul class="days"></ul>
         </div>
+        <div class="day-view" style="display:none;"></div>
+        <div class="week-view" style="display:none;"></div>
+        <div class="year-view" style="display:none;"></div>
     </div>
 </body>
 </html>
