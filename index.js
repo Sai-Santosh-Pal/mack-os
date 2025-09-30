@@ -36,7 +36,13 @@ dockItems.forEach((item, index) => {
   item.addEventListener('click', () => {
     // Use alt name as filename (ex: finder -> finder.html)
     const appName = item.alt.toLowerCase();
-    createWindow(item.alt, `apps/${appName}.html`);
+    const win = createWindow(item.alt, `apps/${appName}.html`);
+    document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
+    win.classList.add('active');
+    setActiveWindowTitle(item.alt);
+    // Update topbar app name in index.html
+    const topbarName = document.querySelector('.topbar .name');
+    if (topbarName) topbarName.textContent = item.alt;
   });
 });
 
@@ -63,7 +69,7 @@ function createWindow(title, url) {
         <div class="minimize" title="Minimize"></div>
         <div class="fullscreen" title="Full Screen"></div>
       </div>
-      <span>${title}</span>
+      <span class="window-title">${title}</span>
     </div>
     <iframe src="${url}" class="window-content" style="position:absolute; left:0; top:32px; width:100%; height:calc(100% - 32px); background:white; border:none;"></iframe>
     <div class="resizer resizer-n"></div>
@@ -169,6 +175,18 @@ function createWindow(title, url) {
   desktop.appendChild(win);
   makeDraggable(win);
   addWindowControls(win);
+  return win;
+}
+
+// Dynamically update topbar title based on active window
+function setActiveWindowTitle(title) {
+  const activeWin = document.querySelector('.window.active');
+  console.log(activeWin)
+  if (activeWin) {
+    const topbarTitle = activeWin.querySelector('.window-title');
+    console.log(topbarTitle)
+    if (topbarTitle) topbarTitle.textContent = title;
+  }
 }
 
 // ---------------- Draggable Logic ----------------
@@ -214,17 +232,53 @@ function addWindowControls(win) {
 
   closeBtn.addEventListener('click', () => {
     win.remove();
+    // Update topbar app name after closing
+    const windows = document.querySelectorAll('.window');
+    const topbarName = document.querySelector('.topbar .name');
+    if (windows.length > 0) {
+      // Show the title of the last window
+      const lastWin = windows[windows.length - 1];
+      const lastTitle = lastWin.querySelector('.window-title');
+      if (topbarName && lastTitle) topbarName.textContent = lastTitle.textContent;
+    } else {
+      // Fallback to Finder
+      if (topbarName) topbarName.textContent = 'Finder';
+    }
   });
 
   minimizeBtn.addEventListener('click', () => {
+    const header = win.querySelector('.window-topbar');
     if (!isMinimized) {
-      iframe.classList.add("hidden");
-      win.style.height = "40px";
-      isMinimized = true;
+      // Genie effect animation
+      win.style.transition = 'transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.5s';
+      win.style.transformOrigin = 'bottom center';
+      win.style.transform = 'scaleY(0.1) scaleX(0.5) translateY(80px)';
+      win.style.opacity = '0';
+      setTimeout(() => {
+        win.style.transition = '';
+        win.style.transform = '';
+        win.style.opacity = '';
+        iframe.classList.add("hidden");
+        if (header) header.style.display = "none";
+        win.style.height = "40px";
+        win.style.boxShadow = "none";
+        isMinimized = true;
+      }, 500);
     } else {
-      iframe.classList.remove("hidden");
-      win.style.height = "400px";
-      isMinimized = false;
+      win.style.transition = 'transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.5s';
+      win.style.transformOrigin = 'bottom center';
+      win.style.transform = 'scaleY(1) scaleX(1) translateY(0)';
+      win.style.opacity = '1';
+      setTimeout(() => {
+        win.style.transition = '';
+        win.style.transform = '';
+        win.style.opacity = '';
+        iframe.classList.remove("hidden");
+        if (header) header.style.display = "";
+        win.style.height = "400px";
+        win.style.boxShadow = "0 25px 50px -12px rgb(0 0 0 / 0.25)";
+        isMinimized = false;
+      }, 500);
     }
     adjustIframe();
   });
@@ -258,4 +312,12 @@ function addWindowControls(win) {
   window.addEventListener('resize', adjustIframe);
   // Initial adjust
   adjustIframe();
+}
+
+// Trash bin click handler
+const binImg = document.querySelector('img[alt="Bin"]');
+if (binImg) {
+  binImg.addEventListener('click', () => {
+    binImg.src = 'assets/dock/empty-bin.png';
+  });
 }
