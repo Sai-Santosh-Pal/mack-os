@@ -34,15 +34,45 @@ dockItems.forEach((item, index) => {
 
   // ---------------- Open Window on Click ----------------
   item.addEventListener('click', () => {
-    // Use alt name as filename (ex: finder -> finder.html)
     const appName = item.alt.toLowerCase();
-    const win = createWindow(item.alt, `apps/${appName}.html`);
-    document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
-    win.classList.add('active');
-    setActiveWindowTitle(item.alt);
-    // Update topbar app name in index.html
-    const topbarName = document.querySelector('.topbar .name');
-    if (topbarName) topbarName.textContent = item.alt;
+    // Try to find an existing window for this app
+    let win = Array.from(document.querySelectorAll('.window')).find(w => {
+      const titleSpan = w.querySelector('.window-title');
+      return titleSpan && titleSpan.textContent === item.alt;
+    });
+    if (win) {
+      // If minimized, restore it
+      const header = win.querySelector('.window-topbar');
+      const iframe = win.querySelector('.window-content');
+      if (header && header.style.display === "none") {
+        win.style.transition = 'transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.5s';
+        win.style.transformOrigin = 'bottom center';
+        win.style.transform = 'scaleY(1) scaleX(1) translateY(0)';
+        win.style.opacity = '1';
+        setTimeout(() => {
+          win.style.transition = '';
+          win.style.transform = '';
+          win.style.opacity = '';
+          iframe.classList.remove("hidden");
+          header.style.display = "";
+          win.style.height = "400px";
+          win.style.boxShadow = "0 25px 50px -12px rgb(0 0 0 / 0.25)";
+        }, 500);
+      }
+      document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
+      win.classList.add('active');
+      setActiveWindowTitle(item.alt);
+      const topbarName = document.querySelector('.topbar .name');
+      if (topbarName) topbarName.textContent = item.alt;
+    } else {
+      // Create new window if not already open
+      win = createWindow(item.alt, `apps/${appName}.html`);
+      document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
+      win.classList.add('active');
+      setActiveWindowTitle(item.alt);
+      const topbarName = document.querySelector('.topbar .name');
+      if (topbarName) topbarName.textContent = item.alt;
+    }
   });
 });
 
@@ -231,19 +261,26 @@ function addWindowControls(win) {
   let prevRect = {};
 
   closeBtn.addEventListener('click', () => {
-    win.remove();
-    // Update topbar app name after closing
-    const windows = document.querySelectorAll('.window');
-    const topbarName = document.querySelector('.topbar .name');
-    if (windows.length > 0) {
-      // Show the title of the last window
-      const lastWin = windows[windows.length - 1];
-      const lastTitle = lastWin.querySelector('.window-title');
-      if (topbarName && lastTitle) topbarName.textContent = lastTitle.textContent;
-    } else {
-      // Fallback to Finder
-      if (topbarName) topbarName.textContent = 'Finder';
-    }
+    // Close animation
+    win.style.transition = 'transform 0.4s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.4s';
+    win.style.transformOrigin = 'top center';
+    win.style.transform = 'scaleY(0.1) scaleX(0.5) translateY(-80px)';
+    win.style.opacity = '0';
+    setTimeout(() => {
+      win.remove();
+      // Update topbar app name after closing
+      const windows = document.querySelectorAll('.window');
+      const topbarName = document.querySelector('.topbar .name');
+      if (windows.length > 0) {
+        // Show the title of the last window
+        const lastWin = windows[windows.length - 1];
+        const lastTitle = lastWin.querySelector('.window-title');
+        if (topbarName && lastTitle) topbarName.textContent = lastTitle.textContent;
+      } else {
+        // Fallback to Finder
+        if (topbarName) topbarName.textContent = 'Finder';
+      }
+    }, 400);
   });
 
   minimizeBtn.addEventListener('click', () => {
@@ -321,3 +358,25 @@ if (binImg) {
     binImg.src = 'assets/dock/empty-bin.png';
   });
 }
+
+// ---------------- Dynamic Date & Time in Header ----------------
+function updateHeaderDateTime() {
+  // Format: Tue 30 Sep 2025 14:05
+  const dateElem = document.querySelector('.topbar .date');
+  const timeElem = document.querySelector('.topbar .time');
+  if (!dateElem && !timeElem) return;
+  const now = new Date();
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const day = days[now.getDay()];
+  const date = now.getDate();
+  const month = months[now.getMonth()];
+  const year = now.getFullYear();
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  if (dateElem) dateElem.textContent = `${day} ${date} ${month} ${year}`;
+  if (timeElem) timeElem.textContent = `${hours}:${minutes}`;
+}
+
+setInterval(updateHeaderDateTime, 1000);
+updateHeaderDateTime();
