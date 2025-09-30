@@ -3,9 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Terminal</title>
+    <style>
+        body {
+            margin: 0;
+            background: #232323;
+            font-family: 'SF Pro', 'Menlo', 'Monaco', 'Consolas', monospace;
+        }
+        .terminal-wrapper {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #232323;
+        }
+        .terminal-area {
+            flex: 1;
+            background: #232323;
+            color: #e5e5ea;
+            font-size: 1.1rem;
+            padding: 24px 24px 0 24px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        .prompt {
+            color: #34c759;
+            font-weight: 600;
+        }
+        .input {
+            color: #fff;
+        }
+        .terminal-input {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.1rem;
+            font-family: inherit;
+            outline: none;
+            width: 80%;
+        }
+        .terminal-line {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    </style>
 </head>
 <body>
-    Terminal
+    <div class="terminal-wrapper">
+        <!-- <div class="terminal-topbar"></div> -->
+        <div class="terminal-area" id="terminal-area">
+            <div class="terminal-line">
+                <span class="prompt">mackos:~ user$</span>
+                <input class="terminal-input" id="terminal-input" autofocus>
+            </div>
+        </div>
+    </div>
+    <script>
+        const terminalArea = document.getElementById('terminal-area');
+        const terminalInput = document.getElementById('terminal-input');
+        function addLine(text) {
+            const line = document.createElement('div');
+            line.className = 'terminal-line';
+            line.innerHTML = `<span class='prompt'>mackos:~ user$</span><span class='input'>${text}</span>`;
+            terminalArea.insertBefore(line, terminalArea.lastElementChild);
+        }
+        terminalInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const value = terminalInput.value;
+                if (value.trim() !== '') {
+                    addLine(value);
+                }
+                terminalInput.value = '';
+                // Scroll to bottom
+                terminalArea.scrollTop = terminalArea.scrollHeight;
+            }
+        });
+    </script>
 </body>
 </html>

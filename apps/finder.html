@@ -3,9 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Finder</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'SF Pro', Arial, sans-serif;
+            background: #f6f7fa;
+        }
+        .finder-wrapper {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+        .finder-sidebar {
+            width: 200px;
+            background: #f2f2f7;
+            border-right: 1px solid #e5e5ea;
+            padding: 16px 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .finder-sidebar h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #636366;
+            margin: 0 0 12px 24px;
+        }
+        .finder-sidebar ul {
+            list-style: none;
+            padding: 0 0 0 24px;
+            margin: 0;
+        }
+        .finder-sidebar li {
+            color: #636366;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            cursor: pointer;
+            padding: 2px 0;
+        }
+        .finder-main {
+            flex: 1;
+            padding: 32px 32px 0 32px;
+            background: #fff;
+        }
+        .finder-apps {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 32px 24px;
+            margin-top: 16px;
+        }
+        .finder-app {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+        }
+        .finder-app img {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            background: #f2f2f7;
+            box-shadow: 0 2px 8px rgba(60,60,67,0.07);
+        }
+        .finder-app span {
+            font-size: 1rem;
+            color: #1d1d1f;
+            margin-top: 4px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    Finder
+    <div class="finder-wrapper">
+        <aside class="finder-sidebar">
+            <h3>Favorites</h3>
+            <ul>
+                <li>AirDrop</li>
+                <li>Applications</li>
+                <li>Desktop</li>
+                <li>Documents</li>
+                <li>Downloads</li>
+            </ul>
+            <h3>Tags</h3>
+            <ul>
+                <li>Red</li>
+                <li>Orange</li>
+                <li>Yellow</li>
+                <li>Green</li>
+                <li>Blue</li>
+                <li>Purple</li>
+                <li>Gray</li>
+            </ul>
+        </aside>
+        <main class="finder-main">
+            <h2 style="font-size:1.5rem;font-weight:700;color:#1d1d1f;margin-bottom:16px;">Applications</h2>
+            <div class="finder-apps">
+                <div class="finder-app">
+                    <img src="../assets/dock/bin.png" alt="Bin">
+                    <span>Bin</span>
+                </div>
+                <div class="finder-app">
+                    <img src="../assets/dock/calendar.png" alt="Calendar">
+                    <span>Calendar</span>
+                </div>
+                <div class="finder-app">
+                    <img src="../assets/dock/finder.png" alt="Finder">
+                    <span>Finder</span>
+                </div>
+                <div class="finder-app">
+                    <img src="../assets/dock/launchpad.png" alt="Launchpad">
+                    <span>Launchpad</span>
+                </div>
+                <div class="finder-app">
+                    <img src="../assets/dock/messages.png" alt="Messages">
+                    <span>Messages</span>
+                </div>
+                <div class="finder-app">
+                    <img src="../assets/dock/safari.png" alt="Safari">
+                    <span>Safari</span>
+                </div>
+                <div class="finder-app">
+                    <img src="../assets/dock/spotify.png" alt="Spotify">
+                    <span>Spotify</span>
+                </div>
+                <div class="finder-app">
+                    <img src="../assets/dock/terminal.png" alt="Terminal">
+                    <span>Terminal</span>
+                </div>
+                <div class="finder-app">
+                    <img src="../assets/dock/vscode.png" alt="VSCode">
+                    <span>VSCode</span>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="overlay" onclick="this.style.display='none';" style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 100vw;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      font-family: sans-serif;
+      font-size: 1.5rem;
+      text-align: center;
+      padding: 2rem;
+      z-index: 9999;
+      cursor: pointer;
+    ">
+    🚧 This is a Finder UI clone. Nothing is functional yet - I'm working on it and will be shipping it in the next
+    update. <br>
+    Click anywhere to close this message.
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('click', function () {
+                document.getElementById('overlay').style.display = 'flex';
+            });
+
+            document.getElementById('overlay').addEventListener('click', function (event) {
+                event.stopPropagation();
+                this.style.display = 'none';
+            });
+        });
+    </script>
 </body>
 </html>

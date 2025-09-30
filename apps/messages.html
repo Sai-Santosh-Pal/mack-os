@@ -3,9 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Messages</title>
+    <link rel="stylesheet" href="messages.css">
 </head>
 <body>
-    iMessages
+    <div class="messages-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">iMessages</div>
+            <div class="sidebar-search">
+                <input type="text" placeholder="Search">
+            </div>
+            <div class="sidebar-chats">
+                <div class="chat-item active">
+                    <div class="chat-avatar">A</div>
+                    <div class="chat-info">
+                        <div class="chat-title">Amy, Andrew & Yumi</div>
+                        <div class="chat-preview">Stella just sent!</div>
+                    </div>
+                    <div class="chat-date">7/20/20</div>
+                </div>
+                <div class="chat-item">
+                    <div class="chat-avatar">D</div>
+                    <div class="chat-info">
+                        <div class="chat-title">Dave Knox</div>
+                        <div class="chat-preview">Check your email 👀</div>
+                    </div>
+                    <div class="chat-date">7/20/20</div>
+                </div>
+            </div>
+        </aside>
+        <main class="main">
+            <div class="main-header">Amy, Andrew &amp; Yumi</div>
+            <div class="messages-list">
+                <div class="message sent">Does anyone have any good recipes they've tried lately? I need some inspiration!</div>
+                <div class="message">We made pizza from scratch last weekend, the kids loved it 🍕</div>
+                <div class="message">Does anyone have any good recipes they've tried lately? I need some inspiration!</div>
+                <div class="message">I've got a bunch that are quick and easy, I'll send them to you.</div>
+                <div class="message sent">YES! Thank you!!</div>
+                <div class="message">Check your email 👀</div>
+                <div class="message sent">Stella just sent!</div>
+            </div>
+            <form class="input-bar">
+                <input type="text" placeholder="Type a message...">
+                <button type="submit">Send</button>
+            </form>
+        </main>
+    </div>
+    <div id="overlay" onclick="this.style.display='none';" style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 100vw;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      font-family: sans-serif;
+      font-size: 1.5rem;
+      text-align: center;
+      padding: 2rem;
+      z-index: 9999;
+      cursor: pointer;
+    ">
+    🚧 This is a Messages UI clone. Nothing is functional yet - I'm working on it and will be shipping it in the next
+    update. <br>
+    Click anywhere to close this message.
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('click', function () {
+                document.getElementById('overlay').style.display = 'flex';
+            });
+
+            document.getElementById('overlay').addEventListener('click', function (event) {
+                event.stopPropagation();
+                this.style.display = 'none';
+            });
+        });
+    </script>
 </body>
 </html>
